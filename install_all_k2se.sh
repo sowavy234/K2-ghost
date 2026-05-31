@@ -1,36 +1,34 @@
 #!/bin/sh
-# K2 SE Automagic All-in-One Installer (AUTO OVERWRITE)
-# Overwrites all target files without confirmation!
+# K2 SE Automagic All-in-One Installer
+# Just runs completely, no prompts, for YOUR K2 SE
 
-BACKUP_DIR="/usr/data/printer_data/config/ghostprinter_backup"
+echo "---- K2 SE: Backing up your Klipper printer.cfg ----"
+cp /usr/data/printer_data/config/printer.cfg /usr/data/printer_data/config/printer.cfg.AUTOMAGIC_BACKUP
 
-mkdir -p "$BACKUP_DIR"
+echo "---- K2 SE: Installing macros ----"
+cp config/macros.cfg /usr/data/printer_data/config/macros.cfg
 
-# Backup before overwrite
-cp /usr/data/printer_data/config/printer.cfg $BACKUP_DIR/printer.cfg.$(date +%Y%m%d-%H%M%S) 2>/dev/null
-cp /usr/data/printer_data/config/macros.cfg $BACKUP_DIR/macros.cfg.$(date +%Y%m%d-%H%M%S) 2>/dev/null
+# If not already included, auto-include macros in printer.cfg
+if ! grep -q macros.cfg /usr/data/printer_data/config/printer.cfg ; then
+    echo "[include macros.cfg]" >> /usr/data/printer_data/config/printer.cfg
+fi
 
-echo "---- Overwriting macros.cfg ----"
-cp -f config/macros.cfg /usr/data/printer_data/config/macros.cfg
+echo "---- K2 SE: Installing example advanced printer.cfg (does not overwrite your own) ----"
+cp config/printer.cfg /usr/data/printer_data/config/.AUTOMAGIC_sample_printer.cfg
 
-echo "---- Ensuring include in printer.cfg ----"
-CONFIG=/usr/data/printer_data/config/printer.cfg
-grep -q "macros.cfg" $CONFIG || echo "[include macros.cfg]" >> $CONFIG
+echo "---- K2 SE: Fluidd Web UI Upgrade ----"
+# Replace with your forked fluidd, or just drop-in branding
+mkdir -p /usr/share/fluidd/
+cp -r fluidd_custom/* /usr/share/fluidd/
 
-echo "---- Deploying sample printer.cfg ----"
-cp -f config/printer.cfg /usr/data/printer_data/config/.AUTOMAGIC_sample_printer.cfg
+echo "---- K2 SE: Upgrading Gumpoy (screen) UI ----"
+mkdir -p /usr/share/gumpoy/
+cp -r gumpoy_ui/* /usr/share/gumpoy/
 
-echo "---- Deploying Fluidd UI ----"
-mkdir -p /usr/share/fluidd
-cp -rf fluidd_custom/* /usr/share/fluidd/
+echo "---- K2 SE: All automation complete! Rebooting Klipper/Fluidd and UI ----"
+# Restart commands for K2 SE platform - modify as per your service setup
+systemctl restart klipper
+systemctl restart fluidd
+systemctl restart gumpoy
 
-echo "---- Deploying Gumpoy Screen UI ----"
-mkdir -p /usr/share/gumpoy
-cp -rf gumpoy_ui/* /usr/share/gumpoy/
-
-echo "---- Restarting services ----"
-systemctl restart klipper 2>/dev/null
-systemctl restart fluidd 2>/dev/null
-systemctl restart gumpoy 2>/dev/null
-
-echo "---- GHOST.PRINTER Complete. All files auto-overwritten. ----"
+echo "---- K2 SE is now fully enhanced! ----"
