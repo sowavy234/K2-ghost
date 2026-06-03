@@ -1,0 +1,205 @@
+/* K2 SE Gumpoy Screen - Enhanced CSS Override for Stock Creality Firmware v1.0.0 */
+
+/* Override stock Creality theme variables */
+:root {
+  /* Light Theme (replaces stock) */
+  --primary-color: #2196F3;
+  --secondary-color: #FF9800;
+  --accent-color: #4CAF50;
+  --background: #f5f5f5;
+  --text-color: #333333;
+  --error-color: #F44336;
+  --warning-color: #FFC107;
+  --success-color: #4CAF50;
+}
+
+/* K2-GHOST OVERRIDE: Force new theme over Creality defaults */
+body, html {
+  background-color: var(--background) !important;
+  color: var(--text-color) !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+/* Override Creality header */
+.header, .creality-header {
+  background: linear-gradient(135deg, #2196F3 0%, #FF9800 100%) !important;
+  color: white !important;
+}
+
+/* Override Creality buttons */
+.btn, button, [role="button"] {
+  background: linear-gradient(135deg, #2196F3, #FF9800) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+button:hover, .btn:hover, [role="button"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+}
+
+/* Override Creality sidebar */
+.sidebar, .menu, nav {
+  border-right: 3px solid #2196F3 !important;
+  background-color: var(--background) !important;
+}
+
+.sidebar-item:hover, nav > * :hover {
+  background-color: rgba(33, 150, 243, 0.1) !important;
+  color: #2196F3 !important;
+}
+
+/* Override status indicators */
+.status-ok, .status-ready {
+  color: #4CAF50 !important;
+}
+
+.status-error, .status-fail {
+  color: #F44336 !important;
+}
+
+.status-warning {
+  color: #FFC107 !important;
+}
+
+/* Override temperature displays */
+.temperature-display, .temp-display {
+  font-weight: bold !important;
+  color: #2196F3 !important;
+  font-size: 24px !important;
+}
+
+/* Override progress bars */
+.progress-bar, [role="progressbar"] {
+  background: linear-gradient(90deg, #00BCD4, #4CAF50) !important;
+  height: 8px !important;
+  border-radius: 4px !important;
+}
+
+/* Override modal/dialog boxes */
+.modal, .dialog, [role="dialog"] {
+  background-color: var(--background) !important;
+  border: 2px solid #2196F3 !important;
+  border-radius: 8px !important;
+}
+
+/* Override text inputs */
+input, textarea, select {
+  background-color: rgba(33, 150, 243, 0.05) !important;
+  border: 1px solid #2196F3 !important;
+  color: var(--text-color) !important;
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.3) !important;
+  border-color: #2196F3 !important;
+}
+
+/* K2-GHOST New UI Elements */
+.k2-info-card {
+  background-color: rgba(33, 150, 243, 0.1) !important;
+  border-left: 4px solid #2196F3 !important;
+  padding: 16px !important;
+  margin: 12px 0 !important;
+  border-radius: 4px !important;
+}
+
+.k2-tab-container {
+  display: flex !important;
+  border-bottom: 2px solid #2196F3 !important;
+  gap: 8px !important;
+}
+
+.k2-tab {
+  padding: 12px 20px !important;
+  border: none !important;
+  background: none !important;
+  cursor: pointer !important;
+  color: var(--text-color) !important;
+  transition: all 0.3s ease !important;
+  border-bottom: 3px solid transparent !important;
+  margin-bottom: -2px !important;
+}
+
+.k2-tab:hover {
+  color: #2196F3 !important;
+}
+
+.k2-tab.active {
+  color: #2196F3 !important;
+  border-bottom-color: #2196F3 !important;
+}
+
+/* Override Creality theme colors - Force K2-Ghost branding */
+[class*="creality"], [id*="creality"], [class*="stock"] {
+  filter: hue-rotate(0deg) brightness(0.95) !important;
+}
+
+/* Ensure K2-Ghost CSS takes priority */
+.k2-theme, .k2-override {
+  color: var(--text-color) !important;
+  background-color: var(--background) !important;
+}
+
+/* NEW TABS FOR K2-GHOST v1.0.0 */
+.tab-printer-status {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.tab-temperature {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.tab-terminal {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid #2196F3;
+  border-radius: 4px;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  color: #00ff00;
+  min-height: 300px;
+}
+
+.tab-macros {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+/* Dark Theme Override (when enabled) */
+body.theme-dark, .dark-mode {
+  --background: #1e1e1e;
+  --text-color: #e0e0e0;
+  --primary-color: #64B5F6;
+}
+
+/* Neon Theme Override */
+body.theme-neon, .neon-mode {
+  --background: #0a0a0a;
+  --text-color: #00ff00;
+  --primary-color: #00ffff;
+}
+
+/* Ensure all Creality firmware elements are overridden */
+* {
+  --creality-override: true;
+}
+
+/* Animations for new UI */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.k2-animate {
+  animation: slideIn 0.3s ease;
+}
